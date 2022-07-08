@@ -17,6 +17,17 @@ input("Press Enter to Continue")
 # function to clear screen
 
 
+def console():
+    print("\nWelcome to Slayer! For eons, tales of legendary beasts and creatures have only been dreamt up in the minds of bards and rooms of local inns; Nothing more than nightmares and folktales.\n" +
+          "However, today that all changes...\n" + "\nAs one of the few survivors of a brutal attack on the local town, you find yourself awake at the local Inn, surrounded by chaos. Grab weapons and items to survive!\n" +
+          "Slay the monsters you come across and fight your way to the entity that caused all of this! Good luck, Slayer! \n")
+
+
+console()
+
+input("PRESS ANY KEY TO BEGIN GAME")
+
+
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
