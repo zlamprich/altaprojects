@@ -76,11 +76,11 @@ def combat():
         print("\n=========================")
 
         if move[0] == 'use':
-            if move[1] in weapon:  # checks if weapon is in your inventory
+            if move[1] in weapons:  # checks if weapon is in your inventory
                 player_damage = dice.roll(weapon[move[1]]['damage'])
                 print(
                     f"You hit a {bestiary[monster_ID]['name']} for {player_damage} damage!")
-            if move[1] not in weapon:
+            if move[1] not in weapons:
                 print(f"You are not carrying a {move[1]}!")
 
         if move[0] == 'run':
@@ -196,11 +196,11 @@ def boss_battle():
         print("\n=========================")
 
         if move[0] == 'use':
-            if move[1] in weapon:  # checks if weapon is in your inventory
+            if move[1] in weapons:  # checks if weapon is in your inventory
                 player_damage = dice.roll(weapon[move[1]]['damage'])
                 print(
                     f"You hit a {boss[entity_ID]['name']} for {player_damage} damage!")
-            if move[1] not in weapon:
+            if move[1] not in weapons:
                 print(f"You are not carrying a {move[1]}!")
 
         if move[0] == 'run':
@@ -306,8 +306,6 @@ rooms = {
     'Basement': {
         'up': 'Abandoned House',
         'randenc': '0',
-        'item': 'zerg\n',
-        'item_status': ' A mini, plastic Zerg figurine. You aren\'t sure what a Zerg is, but looking at it makes you feel grossed out.',
         'desc': 'A disgusting basement filled with what looks to be one of the local families. Wait....what\'s that sound',
         'fight': 'boss'
     }
@@ -335,7 +333,6 @@ while True:   # MAIN INFINITE LOOP
             currentRoom = rooms[currentRoom][move[1]]
             if 'desc' in rooms[currentRoom]:
                 print(rooms[currentRoom]['desc'])
-            cls()
             random_encounter()
             # if YES that direction exists, then assign your new current room to the VALUE of the key the user entered
         else:
