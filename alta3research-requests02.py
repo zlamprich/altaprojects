@@ -3,13 +3,13 @@ import requests
 import json
 from pprint import pprint
 
-URL = "http://127.0.0.1:2224/"
+URL = "http://127.0.0.1:2224/hint"
 
 new_hero = {
-    "name": "Wolverine",
-    "realName": "James Howlett",
-    "since": 1974,
-    "powers": ["adamantium skeleton", "claws", "regeneration"]
+    "name": "Ronald McDonald",
+    "realName": "REDACTED",
+    "since": 1934,
+    "powers": ["Is a Clown", "Can Join Forces with the Hamburglar and Grimace", "Can cause enemies' arteries to be clogged at a moments notice"]
 }
 
 # json.dumps takes a python object and returns it as a JSON string

@@ -13,27 +13,39 @@ import json
 
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 herodata = [{
-    "name": "Spider-Man",
-    "realName": "Peter Parker",
-    "since": 1962,
+    "name": "EXTREMELY HANDSOME MAN",
+    "realName": "Zach Lamprich",
+    "since": 1995,
     "powers": [
-        "wall crawling",
-        "web shooters",
-        "spider senses",
-        "super human strength & agility"
+        "really really ridiculously good looking",
+        "never has been sucked into a flask",
+        "Time Magazine 2006 winner",
+        "+1 str, -3 int"
     ]
 }]
 
 
 @app.route("/")
-@app.route("/start", methods=["POST"])
+@app.route("/start")
 def start():
     return render_template("challengepage.html")
 
 
-@app.route("/questions", methods=["POST", "GET"])
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    # POST would likely come from a user interacting with postmaker.html
+    if request.method == "POST":
+        if request.form.get("nm"):  # if nm was assigned via the POST
+            return render_template("challengepage2.html")
+        else:  # if a user sent a post without nm then assign value defaultuser
+            flash("You entered an invalid name!", "info")
+            return redirect(url_for("start"))
+
+
+@app.route("/questions", methods=["POST"])
 def questions():
     accepted_answers = {"Zach", "zach", "ZACH"}
     hint_answers = {"HINT", "hint", "Hint"}
