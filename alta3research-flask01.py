@@ -9,7 +9,6 @@ from flask import render_template
 from flask import url_for
 from flask import flash
 from flask import jsonify
-import time
 import json
 
 
@@ -30,7 +29,6 @@ herodata = [{
 
 
 @app.route("/")
-@app.route("/start")
 def start():
     return render_template("challengepage.html")
 
@@ -57,7 +55,7 @@ def setcookie():
 @app.route("/getcookie")
 def getcookie():
     name = request.cookies.get("userID")
-    return f'Welcome {name}!! Heres your stored cookie!'
+    return f'Welcome {name}!! Heres your stored cookie!!'
 
 
 @app.route("/questions", methods=["POST", "GET"])
@@ -75,7 +73,7 @@ def questions():
 
 
 @app.route("/data", methods=["GET", "POST"])
-def index():
+def data():
     if request.method == 'POST':
         data = request.json
         if data:
