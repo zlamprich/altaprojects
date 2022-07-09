@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """DEMO: receiving JSON"""
-
+from flask import make_response
 from flask import Flask
 from flask import request
 from flask import redirect
@@ -9,6 +9,7 @@ from flask import render_template
 from flask import url_for
 from flask import flash
 from flask import jsonify
+import time
 import json
 
 
@@ -34,29 +35,43 @@ def start():
     return render_template("challengepage.html")
 
 
-@app.route("/login", methods=["POST", "GET"])
-def login():
-    # POST would likely come from a user interacting with postmaker.html
+@app.route("/setcookie", methods=["POST", "GET"])
+def setcookie():
     if request.method == "POST":
-        if request.form.get("nm"):  # if nm was assigned via the POST
-            return render_template("challengepage2.html")
-        else:  # if a user sent a post without nm then assign value defaultuser
-            flash("You entered an invalid name!", "info")
-            return redirect(url_for("start"))
+        if request.form.get("nm"):
+            user = request.form.get("nm")
+        else:
+            flash("Assigning 'default' as username!", "info")
+            user = "default"
+        resp = make_response(render_template("readcookie.html"))
+        # add a cookie to our response object
+        # cookievar #value
+        resp.set_cookie("userID", user)
+
+        return resp
+
+    if request.method == "GET":
+        return redirect(url_for("start"))
 
 
-@app.route("/questions", methods=["POST"])
+@app.route("/getcookie")
+def getcookie():
+    name = request.cookies.get("userID")
+    return f'Welcome {name}!! Heres your stored cookie!'
+
+
+@app.route("/questions", methods=["POST", "GET"])
 def questions():
     accepted_answers = {"Zach", "zach", "ZACH"}
     hint_answers = {"HINT", "hint", "Hint"}
-    if request.form.get("answer"):
-        input_answer = request.form.get("answer")
+    if request.values.get("answer"):
+        input_answer = request.values.get("answer")
         if input_answer in accepted_answers:
             return redirect(url_for("correct"))
         elif input_answer in hint_answers:
             return redirect("/data")
-        else:
-            return render_template("challengepage2.html")
+    else:
+        return render_template('challengepage2.html')
 
 
 @app.route("/data", methods=["GET", "POST"])
@@ -73,6 +88,11 @@ def index():
                             "since": since, "powers": powers})
 
     return jsonify(herodata)
+
+
+@app.route("/correct")
+def correct():
+    return f"Congratulations! You passed the quiz!\n"
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import requests
 import json
 from pprint import pprint
 
-URL = "http://127.0.0.1:2224/hint"
+URL = "http://127.0.0.1:2224/data"
 
 new_hero = {
     "name": "Ronald McDonald",
